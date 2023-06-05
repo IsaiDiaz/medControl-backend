@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence           http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+  <persistence-unit name="bo.edu.ucb.med_control_medControl_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>bo.edu.ucb.med_control.medControl.entity.HSePerson</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.MdhMedicalHistoryType</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.SeGroupRole</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.AlgSeverity</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.HSeUserMedicine</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.MedMedicineType</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.MdiAtentionDay</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.SeRole</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.IllIllness</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.DoctorPatient</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.MedMedicineContraindication</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.HSePrescription</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.HMdiCertification</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.HSePatient</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.HSeDoctor</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.HMdhMedicalHistory</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.SeGroup</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.UserSecondaryEfect</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.MedMedicineCategorie</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.HSeUser</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.HSeMedicine</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.MdiMedicalSpeciality</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.HMaAppointment</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.HDoctorPatient</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.MdiDoctorAtentionDay</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.MdhKinship</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.HUserSymptoms</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.AlgPatientAllergy</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.MaAppointmentType</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.HSeUserGroup</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.HIllPatientIllness</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.HMdiDoctorMedicalSpeciality</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.SeUser</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.IllPatientIllness</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.SeDoctor</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.SeMedicine</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.MaAppointment</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.AlgAllergy</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.SeUserMedicine</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.UserSymptoms</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.MdiCertification</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.SePrescription</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.MdiDoctorMedicalSpeciality</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.SePatient</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.MdhMedicalHistory</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.SeUserGroup</class>
+    <class>bo.edu.ucb.med_control.medControl.entity.SePerson</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/medcontrol"/>
+      <property name="javax.persistence.jdbc.user" value="postgres"/>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="medcontrol"/>
+    </properties>
+  </persistence-unit>
+</persistence>
