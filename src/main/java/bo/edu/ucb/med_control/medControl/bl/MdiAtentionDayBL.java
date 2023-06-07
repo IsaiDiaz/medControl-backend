@@ -4,6 +4,7 @@ import bo.edu.ucb.med_control.medControl.dao.MdiAtentionDayRepository;
 import bo.edu.ucb.med_control.medControl.dto.MdiAtentionDayDTO;
 import bo.edu.ucb.med_control.medControl.entity.MdiAtentionDay;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -20,18 +21,19 @@ public class MdiAtentionDayBL {
         return mdiAtentionDayRepository.save(mdiAtentionDay);
     }
 
+    @Transactional(readOnly = true)
     public List<MdiAtentionDay> findAll(){
         return mdiAtentionDayRepository.findAll();
     }
-    public MdiAtentionDayDTO save(MdiAtentionDayDTO mdiAtentionDayDTO){
+    public MdiAtentionDayDTO saveAndFlush(MdiAtentionDayDTO mdiAtentionDayDTO){
         MdiAtentionDay mdiAtentionDay = new MdiAtentionDay();
         mdiAtentionDay.setAtentionDayName(mdiAtentionDayDTO.getAtentionDayName());
         mdiAtentionDay.setStatus(mdiAtentionDayDTO.isStatus());
         mdiAtentionDay.setTxDate(new Date());
-        mdiAtentionDay.setTxHost("localhost");
-        mdiAtentionDay.setTxUser(1);
+        mdiAtentionDay.setTxHost(mdiAtentionDayDTO.getTxHost());
+        mdiAtentionDay.setTxUser(mdiAtentionDayDTO.getTxUser());
         mdiAtentionDay.setVersion(mdiAtentionDayDTO.getVersion());
-        mdiAtentionDayRepository.saveAndFlush(mdiAtentionDay);
-        return mdiAtentionDayDTO;
+        mdiAtentionDay = mdiAtentionDayRepository.saveAndFlush(mdiAtentionDay);
+        return new MdiAtentionDayDTO(mdiAtentionDay);
     }
 }
