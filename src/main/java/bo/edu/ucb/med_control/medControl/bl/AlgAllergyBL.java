@@ -34,7 +34,6 @@ public class AlgAllergyBL {
         List<AlgAllergyDTO> algAllergyDTOS= new ArrayList<>();
         List<AlgAllergy> allergies = algAllergyRepository.findAll();
         for (AlgAllergy algAllergy :allergies) {
-            algAllergy.getAlgPatientAllergyList().size();
             algAllergyDTOS.add(new AlgAllergyDTO(algAllergy));
         }
         return algAllergyDTOS;

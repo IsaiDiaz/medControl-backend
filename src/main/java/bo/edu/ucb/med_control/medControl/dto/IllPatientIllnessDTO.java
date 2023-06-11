@@ -3,6 +3,7 @@ package bo.edu.ucb.med_control.medControl.dto;
 import bo.edu.ucb.med_control.medControl.entity.IllIllness;
 import bo.edu.ucb.med_control.medControl.entity.IllPatientIllness;
 import bo.edu.ucb.med_control.medControl.entity.SePatient;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
 import java.util.List;
@@ -11,10 +12,14 @@ public class IllPatientIllnessDTO {
     private Integer userIllnessId;
     private int illnessDocumentId;
     private Date patientIllnessDiagnosticDate;
+    @JsonIgnore
     private int version;
+    @JsonIgnore
     private boolean status;
     private int txDate;
+    @JsonIgnore
     private int txUser;
+    @JsonIgnore
     private String txHost;
     private IllIllnessDTO illnessId;
     private SePatientDTO patientId;

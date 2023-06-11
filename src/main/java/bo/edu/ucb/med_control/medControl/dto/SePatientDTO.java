@@ -37,6 +37,10 @@ public class SePatientDTO {
 
     }
 
+    public SePatientDTO(Integer patientId){
+        this.patientId = patientId;
+    }
+
     public SePatientDTO(SePatient patient) {
         this.patientId = patient.getPatientId();
         this.patientHeight = patient.getPatientHeight();
@@ -60,7 +64,9 @@ public class SePatientDTO {
         patient.setTxUser(this.txUser);
         patient.setTxHost(this.txHost);
         patient.setTxDate(this.txDate);
-        patient.setUserId(this.userId.toEntity());
+        if(this.userId != null){
+            patient.setUserId(this.userId.toEntity());
+        }
         return patient;
     }
 

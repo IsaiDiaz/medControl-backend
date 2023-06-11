@@ -4,6 +4,7 @@ import bo.edu.ucb.med_control.medControl.entity.AlgAllergy;
 import bo.edu.ucb.med_control.medControl.entity.AlgPatientAllergy;
 import bo.edu.ucb.med_control.medControl.entity.AlgSeverity;
 import bo.edu.ucb.med_control.medControl.entity.SePatient;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
 import java.util.List;
@@ -11,14 +12,19 @@ import java.util.List;
 public class AlgPatientAllergyDTO{
     private Integer userAllergyId;
     private Date patientAllergyDiagnosticDate;
+    @JsonIgnore
     private int version;
+    @JsonIgnore
     private boolean status;
+    @JsonIgnore
     private int txUser;
+    @JsonIgnore
     private String txHost;
+    @JsonIgnore
     private Date txDate;
-    private AlgAllergy allergyId;
-    private AlgSeverity severityId;
-    private SePatient patientId;
+    private AlgAllergyDTO allergyId;
+    private AlgSeverityDTO severityId;
+    private SePatientDTO patientId;
 
     public AlgPatientAllergyDTO() {
     }
@@ -31,24 +37,9 @@ public class AlgPatientAllergyDTO{
         this.txUser = algPatientAllergy.getTxUser();
         this.txHost = algPatientAllergy.getTxHost();
         this.txDate = algPatientAllergy.getTxDate();
-        this.allergyId = algPatientAllergy.getAllergyId();
-        this.severityId = algPatientAllergy.getSeverityId();
-        this.patientId = algPatientAllergy.getPatientId();
-    }
-
-    public AlgPatientAllergyDTO(Integer userAllergyId, Date patientAllergyDiagnosticDate, int version, boolean status,
-                                int txUser, String txHost, Date txDate, AlgAllergy allergyId, AlgSeverity severityId,
-                                SePatient patientId) {
-        this.userAllergyId = userAllergyId;
-        this.patientAllergyDiagnosticDate = patientAllergyDiagnosticDate;
-        this.version = version;
-        this.status = status;
-        this.txUser = txUser;
-        this.txHost = txHost;
-        this.txDate = txDate;
-        this.allergyId = allergyId;
-        this.severityId = severityId;
-        this.patientId = patientId;
+        this.allergyId = new AlgAllergyDTO(algPatientAllergy.getAllergyId());
+        this.severityId = new AlgSeverityDTO(algPatientAllergy.getSeverityId());
+        this.patientId = new SePatientDTO(algPatientAllergy.getPatientId());
     }
 
     public AlgPatientAllergy toEntity() {
@@ -60,9 +51,9 @@ public class AlgPatientAllergyDTO{
         algPatientAllergy.setTxUser(this.txUser);
         algPatientAllergy.setTxHost(this.txHost);
         algPatientAllergy.setTxDate(this.txDate);
-        algPatientAllergy.setAllergyId(this.allergyId);
-        algPatientAllergy.setSeverityId(this.severityId);
-        algPatientAllergy.setPatientId(this.patientId);
+        algPatientAllergy.setAllergyId(this.allergyId.toEntity());
+        algPatientAllergy.setSeverityId(this.severityId.toEntity());
+        algPatientAllergy.setPatientId(this.patientId.toEntity());
         return algPatientAllergy;
     }
 
@@ -124,27 +115,27 @@ public class AlgPatientAllergyDTO{
         this.txDate = txDate;
     }
 
-    public AlgAllergy getAllergyId() {
+    public AlgAllergyDTO getAllergyId() {
         return allergyId;
     }
 
-    public void setAllergyId(AlgAllergy allergyId) {
+    public void setAllergyId(AlgAllergyDTO allergyId) {
         this.allergyId = allergyId;
     }
 
-    public AlgSeverity getSeverityId() {
+    public AlgSeverityDTO getSeverityId() {
         return severityId;
     }
 
-    public void setSeverityId(AlgSeverity severityId) {
+    public void setSeverityId(AlgSeverityDTO severityId) {
         this.severityId = severityId;
     }
 
-    public SePatient getPatientId() {
+    public SePatientDTO getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(SePatient patientId) {
+    public void setPatientId(SePatientDTO patientId) {
         this.patientId = patientId;
     }
 

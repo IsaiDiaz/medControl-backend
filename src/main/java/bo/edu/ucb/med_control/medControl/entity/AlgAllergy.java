@@ -7,6 +7,10 @@ package bo.edu.ucb.med_control.medControl.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 /**
@@ -14,6 +18,7 @@ import jakarta.persistence.*;
  * @author isai
  */
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "alg_allergy")
 @NamedQueries({
     @NamedQuery(name = "AlgAllergy.findAll", query = "SELECT a FROM AlgAllergy a"),
@@ -57,6 +62,7 @@ public class AlgAllergy implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date txDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "allergyId", fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<AlgPatientAllergy> algPatientAllergyList;
 
     public AlgAllergy() {

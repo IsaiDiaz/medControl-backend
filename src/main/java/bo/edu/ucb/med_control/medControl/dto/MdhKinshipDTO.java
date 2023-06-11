@@ -1,6 +1,7 @@
 package bo.edu.ucb.med_control.medControl.dto;
 
 import bo.edu.ucb.med_control.medControl.entity.MdhKinship;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,14 +11,23 @@ public class MdhKinshipDTO {
     private Integer kinshipId;
     private String kinshipName;
     private String kinshipDescription;
+    @JsonIgnore
     private int version;
+    @JsonIgnore
     private boolean status;
+    @JsonIgnore
     private int txUser;
+    @JsonIgnore
     private String txHost;
+    @JsonIgnore
     private Date txDate;
     private List<MdhMedicalHistoryDTO> mdhMedicalHistoryList;
 
     public MdhKinshipDTO() {
+    }
+
+    public MdhKinshipDTO(Integer kinshipId) {
+        this.kinshipId = kinshipId;
     }
 
     public MdhKinshipDTO(Integer kinshipId, String kinshipName, String kinshipDescription, int version, boolean status,

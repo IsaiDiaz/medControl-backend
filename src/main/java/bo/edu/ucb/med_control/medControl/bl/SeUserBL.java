@@ -3,12 +3,19 @@ package bo.edu.ucb.med_control.medControl.bl;
 import bo.edu.ucb.med_control.medControl.dto.SeUserDTO;
 import bo.edu.ucb.med_control.medControl.entity.SeUser;
 import bo.edu.ucb.med_control.medControl.dao.SeUserRepository;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -16,7 +23,7 @@ import java.util.stream.Collectors;
 @Service
 public class SeUserBL {
     private final SeUserRepository seUserRepository;
-
+    private static final SecretKey secretKey= Keys.secretKeyFor(SignatureAlgorithm.HS256);
     @Autowired
     public SeUserBL(SeUserRepository seUserRepository) {
         this.seUserRepository = seUserRepository;
@@ -74,6 +81,7 @@ public class SeUserBL {
     public SeUserDTO findByUsername(String username) {
         SeUser seUser = seUserRepository.findByUsername(username);
         Optional<SeUser> seUserOptional = Optional.ofNullable(seUser);
+        System.out.println("User: " + seUser);
         return seUserOptional.map(SeUserDTO::new).orElse(null);
     }
 
@@ -89,7 +97,7 @@ public class SeUserBL {
     public boolean authenticate(String username, String secret) {
         // Buscar el usuario por nombre de usuario
         SeUserDTO userDTO = findByUsername(username);
-
+        System.out.println("User: " + userDTO);
         if (userDTO != null) {
             // Obtener la contraseña hash del usuario
             String hashedPassword = userDTO.getSecret();
@@ -107,18 +115,6 @@ public class SeUserBL {
         }
 
         return false;
-    }
-
-    private String generateSalt() {
-        byte[] saltBytes = new byte[16];
-        new SecureRandom().nextBytes(saltBytes);
-        return bytesToHex(saltBytes);
-    }
-
-    private String getSaltFromHashedPassword(String hashedPassword) {
-        // Obtener los últimos caracteres de la contraseña hash como la sal
-        int saltLength = 32; // Longitud de la sal en caracteres hexadecimales (256 bits / 4 bits por caracter = 64 caracteres, solo se toman los últimos 32 caracteres)
-        return hashedPassword.substring(hashedPassword.length() - saltLength);
     }
 
     private String hashPassword(String password){
@@ -142,6 +138,37 @@ public class SeUserBL {
             hexString.append(hex);
         }
         return hexString.toString();
+    }
+
+    public static boolean validateToken(String token) {
+        try {
+            Jws<Claims> claims = Jwts.parserBuilder()
+                    .setSigningKey(secretKey)
+                    .build()
+                    .parseClaimsJws(token);
+
+            String username = claims.getBody().getSubject();
+            Date expiration = claims.getBody().getExpiration();
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public String generateToken(String username){
+        Date now = new Date();
+        Date expiration = new Date(now.getTime() + 86400000); // 24 hours
+
+        String token = Jwts.builder()
+                .setSubject(username)
+                .setIssuer("MedControl API")
+                .setIssuedAt(now)
+                .setExpiration(expiration)
+                .signWith(secretKey)
+                .compact();
+        return token;
     }
 
 }

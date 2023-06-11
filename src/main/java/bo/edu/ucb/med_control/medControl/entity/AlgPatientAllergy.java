@@ -6,6 +6,9 @@ package bo.edu.ucb.med_control.medControl.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 /**
@@ -54,9 +57,11 @@ public class AlgPatientAllergy implements Serializable {
     private Date txDate;
     @JoinColumn(name = "allergy_id", referencedColumnName = "allergy_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private AlgAllergy allergyId;
     @JoinColumn(name = "severity_id", referencedColumnName = "severity_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private AlgSeverity severityId;
     @JoinColumn(name = "patient_id", referencedColumnName = "patient_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

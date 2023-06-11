@@ -2,6 +2,7 @@ package bo.edu.ucb.med_control.medControl.dto;
 
 import bo.edu.ucb.med_control.medControl.entity.AlgPatientAllergy;
 import bo.edu.ucb.med_control.medControl.entity.AlgSeverity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
 import java.util.List;
@@ -9,16 +10,24 @@ import java.util.List;
 public class AlgSeverityDTO {
     private Integer severityId;
     private String severityName;
+    @JsonIgnore
     private int version;
+    @JsonIgnore
     private boolean status;
+    @JsonIgnore
     private int txUser;
+    @JsonIgnore
     private String txHost;
+    @JsonIgnore
     private Date txDate;
     private List<AlgPatientAllergy> algPatientAllergyList;
 
     public AlgSeverityDTO() {
     }
 
+    public AlgSeverityDTO(Integer severityId){
+        this.severityId = severityId;
+    }
     public AlgSeverityDTO(AlgSeverity algSeverity) {
         this.severityId = algSeverity.getSeverityId();
         this.severityName = algSeverity.getSeverityName();
@@ -27,7 +36,6 @@ public class AlgSeverityDTO {
         this.txUser = algSeverity.getTxUser();
         this.txHost = algSeverity.getTxHost();
         this.txDate = algSeverity.getTxDate();
-        this.algPatientAllergyList = algSeverity.getAlgPatientAllergyList();
     }
 
     public AlgSeverity toEntity() {
@@ -39,7 +47,6 @@ public class AlgSeverityDTO {
         algSeverity.setTxUser(this.txUser);
         algSeverity.setTxHost(this.txHost);
         algSeverity.setTxDate(this.txDate);
-        algSeverity.setAlgPatientAllergyList(this.algPatientAllergyList);
         return algSeverity;
     }
 

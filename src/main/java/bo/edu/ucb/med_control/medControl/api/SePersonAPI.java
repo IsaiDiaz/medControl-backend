@@ -1,5 +1,6 @@
 package bo.edu.ucb.med_control.medControl.api;
 
+import bo.edu.ucb.med_control.medControl.bl.SeUserBL;
 import bo.edu.ucb.med_control.medControl.dto.SePersonDTO;
 import bo.edu.ucb.med_control.medControl.bl.SePersonBL;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,18 @@ public class SePersonAPI {
     }
 
     @GetMapping(path = "/{id}")
-    public SePersonDTO findPersonById(@PathVariable Integer id) {
-        return sePersonBL.findById(id);
+    public SePersonDTO findPersonById(@PathVariable Integer id, @RequestHeader("Authorization") String token) {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }else{
+            return null;
+        }
+        if(SeUserBL.validateToken(token)){
+            return sePersonBL.findById(id);
+        }else{
+            return null;
+        }
+
     }
 
     @PostMapping

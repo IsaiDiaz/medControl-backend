@@ -7,14 +7,10 @@ import bo.edu.ucb.med_control.medControl.dto.SePersonDTO;
 import bo.edu.ucb.med_control.medControl.dto.SeUserDTO;
 import bo.edu.ucb.med_control.medControl.bl.SeUserBL;
 import bo.edu.ucb.med_control.medControl.dto.SeUserGroupDTO;
-import bo.edu.ucb.med_control.medControl.entity.SeUserGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 
 import java.util.Map;
 
@@ -83,11 +79,14 @@ public class SeUserAPI {
     public ResponseEntity<String> authenticateUser(@RequestBody Map<String, Object> request) {
         String username = (String) request.get("username");
         String secret = (String) request.get("secret");
-
+        System.out.println("username: " + username);
+        System.out.println("secret: " + secret);
         boolean authenticated = seUserBL.authenticate(username, secret);
 
         if (authenticated) {
-            return ResponseEntity.ok("Authentication successful");
+            // Generar el JWT
+            String token = seUserBL.generateToken(username);
+            return ResponseEntity.ok("Token: " + token);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");
         }

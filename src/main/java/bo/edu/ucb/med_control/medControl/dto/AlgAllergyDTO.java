@@ -2,6 +2,7 @@ package bo.edu.ucb.med_control.medControl.dto;
 
 import bo.edu.ucb.med_control.medControl.entity.AlgAllergy;
 import bo.edu.ucb.med_control.medControl.entity.AlgPatientAllergy;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
 import java.util.List;
@@ -10,14 +11,23 @@ public class AlgAllergyDTO {
     private Integer allergyId;
     private String allergyName;
     private String allergyDescription;
+    @JsonIgnore
     private int version;
+    @JsonIgnore
     private boolean status;
+    @JsonIgnore
     private int txUser;
+    @JsonIgnore
     private String txHost;
+    @JsonIgnore
     private Date txDate;
     private List<AlgPatientAllergy> algPatientAllergyList;
 
     public AlgAllergyDTO() {
+    }
+
+    public AlgAllergyDTO(Integer allergyId){
+        this.allergyId = allergyId;
     }
 
     public AlgAllergyDTO(AlgAllergy algAllergy) {
@@ -29,7 +39,7 @@ public class AlgAllergyDTO {
         this.txUser = algAllergy.getTxUser();
         this.txHost = algAllergy.getTxHost();
         this.txDate = algAllergy.getTxDate();
-        this.algPatientAllergyList = algAllergy.getAlgPatientAllergyList();
+
     }
 
     public AlgAllergy toEntity() {
@@ -42,7 +52,6 @@ public class AlgAllergyDTO {
         algAllergy.setTxUser(this.txUser);
         algAllergy.setTxHost(this.txHost);
         algAllergy.setTxDate(this.txDate);
-        algAllergy.setAlgPatientAllergyList(this.algPatientAllergyList);
         return algAllergy;
     }
 

@@ -1,20 +1,31 @@
 package bo.edu.ucb.med_control.medControl.dto;
 
 import bo.edu.ucb.med_control.medControl.entity.MdhMedicalHistoryType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.List;
 
 public class MdhMedicalHistoryTypeDTO {
     private Integer medicalHistoryTypeId;
     private String medicalHistoryName;
+    @JsonIgnore
     private int version;
+    @JsonIgnore
     private boolean status;
+    @JsonIgnore
     private int txUser;
+    @JsonIgnore
     private String txHost;
+    @JsonIgnore
     private Date txDate;
     private List<MdhMedicalHistoryDTO> mdhMedicalHistoryList;
 
     public MdhMedicalHistoryTypeDTO() {
+    }
+
+    public MdhMedicalHistoryTypeDTO(Integer medicalHistoryTypeId) {
+        this.medicalHistoryTypeId = medicalHistoryTypeId;
     }
 
     public MdhMedicalHistoryTypeDTO(Integer medicalHistoryTypeId, String medicalHistoryName, int version, boolean status,

@@ -2,6 +2,7 @@ package bo.edu.ucb.med_control.medControl.dto;
 
 import bo.edu.ucb.med_control.medControl.entity.IllIllness;
 import bo.edu.ucb.med_control.medControl.entity.IllPatientIllness;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
 import java.util.List;
@@ -10,14 +11,23 @@ public class IllIllnessDTO {
     private Integer illnessId;
     private String illnessName;
     private String illnesDescription;
+    @JsonIgnore
     private int version;
+    @JsonIgnore
     private boolean status;
+    @JsonIgnore
     private int txUser;
+    @JsonIgnore
     private String txHost;
+    @JsonIgnore
     private Date txDate;
     private List<IllPatientIllness> illPatientIllnessList;
 
     public IllIllnessDTO() {
+    }
+
+    public IllIllnessDTO(Integer illnessId){
+        this.illnessId = illnessId;
     }
 
     public IllIllnessDTO(IllIllness illness) {
@@ -29,7 +39,6 @@ public class IllIllnessDTO {
         this.txUser = illness.getTxUser();
         this.txHost = illness.getTxHost();
         this.txDate = illness.getTxDate();
-        this.illPatientIllnessList = illness.getIllPatientIllnessList();
     }
 
     public IllIllness toEntity() {
@@ -42,7 +51,6 @@ public class IllIllnessDTO {
         illness.setTxUser(this.txUser);
         illness.setTxHost(this.txHost);
         illness.setTxDate(this.txDate);
-        illness.setIllPatientIllnessList(this.illPatientIllnessList);
         return illness;
     }
 
