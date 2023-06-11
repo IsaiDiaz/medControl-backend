@@ -1,6 +1,9 @@
 package bo.edu.ucb.med_control.medControl.dto;
 
+import bo.edu.ucb.med_control.medControl.entity.MdhKinship;
 import bo.edu.ucb.med_control.medControl.entity.MdhMedicalHistory;
+import bo.edu.ucb.med_control.medControl.entity.MdhMedicalHistoryType;
+import bo.edu.ucb.med_control.medControl.entity.SePatient;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -148,6 +151,28 @@ public class MdhMedicalHistoryDTO implements Serializable {
         entity.setTxUser(this.txUser);
         entity.setTxHost(this.txHost);
         entity.setTxDate(this.txDate);
+
+        // Convertir la referencia a MdhKinship de DTO a Entity
+        if (this.kinshipId != null) {
+            MdhKinship kinship = new MdhKinship();
+            kinship.setKinshipId(this.kinshipId.getKinshipId());
+            entity.setKinshipId(kinship);
+        }
+
+        // Convertir la referencia a MdhMedicalHistoryType de DTO a Entity
+        if (this.medicalHistoryTypeId != null) {
+            MdhMedicalHistoryType historyType = new MdhMedicalHistoryType();
+            historyType.setMedicalHistoryTypeId(this.medicalHistoryTypeId.getMedicalHistoryTypeId());
+            entity.setMedicalHistoryTypeId(historyType);
+        }
+
+        // Convertir la referencia a SePatient de DTO a Entity
+        if (this.patientId != null) {
+            SePatient patient = new SePatient();
+            patient.setPatientId(this.patientId.getPatientId());
+            entity.setPatientId(patient);
+        }
+
         return entity;
     }
 

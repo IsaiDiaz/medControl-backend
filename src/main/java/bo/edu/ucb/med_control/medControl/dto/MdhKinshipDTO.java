@@ -1,6 +1,8 @@
 package bo.edu.ucb.med_control.medControl.dto;
 
 import bo.edu.ucb.med_control.medControl.entity.MdhKinship;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -125,6 +127,17 @@ public class MdhKinshipDTO {
         kinship.setTxHost(this.txHost);
         kinship.setTxDate(this.txDate);
         return kinship;
+    }
+
+    public static List<MdhKinshipDTO> fromList(List<MdhKinship> list) {
+        List<MdhKinshipDTO> newList = new ArrayList<>();
+        for (MdhKinship mdhKinship : list) {
+            MdhKinshipDTO kinshipDTO = new MdhKinshipDTO();
+            kinshipDTO.setKinshipId(mdhKinship.getKinshipId());
+            // Establecer otras propiedades de kinshipDTO si es necesario
+            newList.add(kinshipDTO);
+        }
+        return newList;
     }
 
     @Override

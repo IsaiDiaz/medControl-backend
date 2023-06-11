@@ -11,7 +11,7 @@ public class SeGroupRoleDTO {
     private int txUser;
     private String txHost;
     private Date txDate;
-    private SeGroupDTO groupId;
+    private Integer groupId;
     private SeRoleDTO roleId;
 
     public SeGroupRoleDTO() {}
@@ -23,7 +23,7 @@ public class SeGroupRoleDTO {
         this.txUser = groupRole.getTxUser();
         this.txHost = groupRole.getTxHost();
         this.txDate = groupRole.getTxDate();
-        this.groupId = new SeGroupDTO(groupRole.getGroupId());
+        this.groupId = groupRole.getGroupId().getGroupId();
         this.roleId = new SeRoleDTO(groupRole.getRoleId());
     }
 
@@ -90,11 +90,11 @@ public class SeGroupRoleDTO {
         this.txDate = txDate;
     }
 
-    public SeGroupDTO getGroupId() {
+    public Integer getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(SeGroupDTO groupId) {
+    public void setGroupId(Integer groupId) {
         this.groupId = groupId;
     }
 
@@ -114,7 +114,9 @@ public class SeGroupRoleDTO {
         groupRole.setTxUser(this.txUser);
         groupRole.setTxHost(this.txHost);
         groupRole.setTxDate(this.txDate);
-        groupRole.setGroupId(this.groupId.toEntity());
+        SeGroup group = new SeGroup();
+        group.setGroupId(this.groupId);
+        groupRole.setGroupId(group);
         groupRole.setRoleId(this.roleId.toEntity());
         return groupRole;
     }

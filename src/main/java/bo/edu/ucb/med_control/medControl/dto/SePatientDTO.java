@@ -4,6 +4,7 @@ import bo.edu.ucb.med_control.medControl.entity.IllPatientIllness;
 import bo.edu.ucb.med_control.medControl.entity.MdhMedicalHistory;
 import bo.edu.ucb.med_control.medControl.entity.SePatient;
 import bo.edu.ucb.med_control.medControl.entity.SeUser;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -14,17 +15,26 @@ public class SePatientDTO {
     private BigDecimal patientHeight;
     private BigDecimal patientWeight;
     private String patientGender;
+    @JsonIgnore
     private int version;
+    @JsonIgnore
     private boolean status;
+    @JsonIgnore
     private int txUser;
+    @JsonIgnore
     private String txHost;
+    @JsonIgnore
     private Date txDate;
+    @JsonIgnore
     private List<IllPatientIllnessDTO> illPatientIllnessList;
+    @JsonIgnore
     private List<MdhMedicalHistoryDTO> mdhMedicalHistoryList;
     private SeUserDTO userId;
+    @JsonIgnore
     private List<AlgPatientAllergyDTO> algPatientAllergyList;
 
     public SePatientDTO() {
+
     }
 
     public SePatientDTO(SePatient patient) {
@@ -37,11 +47,6 @@ public class SePatientDTO {
         this.txUser = patient.getTxUser();
         this.txHost = patient.getTxHost();
         this.txDate = patient.getTxDate();
-        // Map nested entities
-        this.illPatientIllnessList = IllPatientIllnessDTO.fromList(patient.getIllPatientIllnessList());
-        this.mdhMedicalHistoryList = MdhMedicalHistoryDTO.fromList(patient.getMdhMedicalHistoryList());
-        this.userId = new SeUserDTO(patient.getUserId());
-        this.algPatientAllergyList = AlgPatientAllergyDTO.fromList(patient.getAlgPatientAllergyList());
     }
 
     public SePatient toEntity() {
@@ -55,11 +60,7 @@ public class SePatientDTO {
         patient.setTxUser(this.txUser);
         patient.setTxHost(this.txHost);
         patient.setTxDate(this.txDate);
-        // Map nested entities
-        patient.setIllPatientIllnessList(IllPatientIllnessDTO.toEntityList(this.illPatientIllnessList));
-        patient.setMdhMedicalHistoryList(MdhMedicalHistoryDTO.toEntityList(this.mdhMedicalHistoryList));
         patient.setUserId(this.userId.toEntity());
-        patient.setAlgPatientAllergyList(AlgPatientAllergyDTO.toEntityList(this.algPatientAllergyList));
         return patient;
     }
 

@@ -26,7 +26,7 @@ public class SePersonBL {
                 .collect(Collectors.toList());
     }
 
-    public SePersonDTO getSePersonById(Integer id) {
+    public SePersonDTO findById(Integer id) {
         Optional<SePerson> sePersonOptional = sePersonRepository.findById(id);
         return sePersonOptional.map(SePersonDTO::new).orElse(null);
     }

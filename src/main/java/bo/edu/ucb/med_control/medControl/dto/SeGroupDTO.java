@@ -1,6 +1,8 @@
 package bo.edu.ucb.med_control.medControl.dto;
 
 import bo.edu.ucb.med_control.medControl.entity.*;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +20,10 @@ public class SeGroupDTO {
     private List<SeGroupRoleDTO> seGroupRoleList;
     private List<SeUserGroupDTO> seUserGroupList;
 
-    public SeGroupDTO() {}
+    public SeGroupDTO() {
+        this.seGroupRoleList = new ArrayList<>();
+        this.seUserGroupList = new ArrayList<>();
+    }
 
     public SeGroupDTO(SeGroup group) {
         this.groupId = group.getGroupId();
@@ -29,8 +34,6 @@ public class SeGroupDTO {
         this.txUser = group.getTxUser();
         this.txHost = group.getTxHost();
         this.txDate = group.getTxDate();
-        this.seGroupRoleList = group.getSeGroupRoleList().stream().map(SeGroupRoleDTO::new).collect(Collectors.toList());
-        this.seUserGroupList = group.getSeUserGroupList().stream().map(SeUserGroupDTO::new).collect(Collectors.toList());
     }
 
     public SeGroupDTO(Integer groupId) {
@@ -140,8 +143,21 @@ public class SeGroupDTO {
         group.setTxUser(this.txUser);
         group.setTxHost(this.txHost);
         group.setTxDate(this.txDate);
-        group.setSeGroupRoleList(this.seGroupRoleList.stream().map(SeGroupRoleDTO::toEntity).collect(Collectors.toList()));
-        group.setSeUserGroupList(this.seUserGroupList.stream().map(SeUserGroupDTO::toEntity).collect(Collectors.toList()));
+        // Verificar si seGroupRoleList es nula y asignar una lista vacía en su lugar
+        if (this.seGroupRoleList == null) {
+            this.seGroupRoleList = new ArrayList<>();
+        }
+        group.setSeGroupRoleList(this.seGroupRoleList.stream()
+                .map(SeGroupRoleDTO::toEntity)
+                .collect(Collectors.toList()));
+
+        // Verificar si seUserGroupList es nula y asignar una lista vacía en su lugar
+        if (this.seUserGroupList == null) {
+            this.seUserGroupList = new ArrayList<>();
+        }
+        group.setSeUserGroupList(this.seUserGroupList.stream()
+                .map(SeUserGroupDTO::toEntity)
+                .collect(Collectors.toList()));
         return group;
     }
 

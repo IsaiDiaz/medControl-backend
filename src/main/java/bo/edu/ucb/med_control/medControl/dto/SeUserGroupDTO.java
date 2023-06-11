@@ -23,8 +23,6 @@ public class SeUserGroupDTO {
         this.txUser = userGroup.getTxUser();
         this.txHost = userGroup.getTxHost();
         this.txDate = userGroup.getTxDate();
-        this.groupId = new SeGroupDTO(userGroup.getGroupId());
-        this.userId = new SeUserDTO(userGroup.getUserId());
     }
 
     public SeUserGroupDTO(Integer userGroupId) {

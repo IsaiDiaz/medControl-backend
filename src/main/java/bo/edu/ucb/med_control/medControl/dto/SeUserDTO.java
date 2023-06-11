@@ -1,33 +1,64 @@
 package bo.edu.ucb.med_control.medControl.dto;
 
 import bo.edu.ucb.med_control.medControl.entity.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class SeUserDTO {
 
+    @JsonProperty("userId")
     private Integer userId;
     private String username;
+    @JsonIgnore
     private String secret;
+    @JsonIgnore
     private int userPictureId;
+    @JsonIgnore
     private int version;
+    @JsonIgnore
     private boolean status;
+    @JsonIgnore
     private int txUser;
+    @JsonIgnore
     private String txHost;
+    @JsonIgnore
     private Date txDate;
+    @JsonIgnore
     private List<SePrescriptionDTO> sePrescriptionList;
+    @JsonIgnore
     private List<SePrescriptionDTO> sePrescriptionList1;
+    @JsonIgnore
     private List<SeDoctorDTO> seDoctorList;
+    @JsonIgnore
     private List<DoctorPatientDTO> doctorPatientList;
+    @JsonIgnore
     private List<SeUserGroupDTO> seUserGroupList;
+    @JsonIgnore
     private List<MaAppointmentDTO> maAppointmentList;
+    @JsonIgnore
     private List<MaAppointmentDTO> maAppointmentList1;
     private SePersonDTO personId;
+    @JsonIgnore
     private List<SeUserMedicineDTO> seUserMedicineList;
+    @JsonIgnore
     private List<SePatientDTO> sePatientList;
 
-    public SeUserDTO() {}
+    public SeUserDTO() {
+        this.sePrescriptionList = new ArrayList<>();
+        this.sePrescriptionList1 = new ArrayList<>();
+        this.seDoctorList = new ArrayList<>();
+        this.doctorPatientList = new ArrayList<>();
+        this.seUserGroupList = new ArrayList<>();
+        this.maAppointmentList = new ArrayList<>();
+        this.maAppointmentList1 = new ArrayList<>();
+        this.seUserMedicineList = new ArrayList<>();
+        this.sePatientList = new ArrayList<>();
+    }
 
     public SeUserDTO(SeUser seUser) {
         this.userId = seUser.getUserId();
@@ -39,34 +70,70 @@ public class SeUserDTO {
         this.txUser = seUser.getTxUser();
         this.txHost = seUser.getTxHost();
         this.txDate = seUser.getTxDate();
-        this.sePrescriptionList = seUser.getSePrescriptionList().stream()
-                .map(SePrescriptionDTO::new)
-                .collect(Collectors.toList());
-        this.sePrescriptionList1 = seUser.getSePrescriptionList1().stream()
-                .map(SePrescriptionDTO::new)
-                .collect(Collectors.toList());
-        this.seDoctorList = seUser.getSeDoctorList().stream()
-                .map(SeDoctorDTO::new)
-                .collect(Collectors.toList());
-        this.doctorPatientList = seUser.getDoctorPatientList().stream()
-                .map(DoctorPatientDTO::new)
-                .collect(Collectors.toList());
-        this.seUserGroupList = seUser.getSeUserGroupList().stream()
-                .map(SeUserGroupDTO::new)
-                .collect(Collectors.toList());
-        this.maAppointmentList = seUser.getMaAppointmentList().stream()
-                .map(MaAppointmentDTO::new)
-                .collect(Collectors.toList());
-        this.maAppointmentList1 = seUser.getMaAppointmentList1().stream()
-                .map(MaAppointmentDTO::new)
-                .collect(Collectors.toList());
         this.personId = new SePersonDTO(seUser.getPersonId());
-        this.seUserMedicineList = seUser.getSeUserMedicineList().stream()
-                .map(SeUserMedicineDTO::new)
-                .collect(Collectors.toList());
-        this.sePatientList = seUser.getSePatientList().stream()
-                .map(SePatientDTO::new)
-                .collect(Collectors.toList());
+    }
+
+    private List<SePrescriptionDTO> mapSePrescriptionList(List<SePrescription> sePrescriptions) {
+        if (sePrescriptions != null) {
+            return sePrescriptions.stream()
+                    .map(SePrescriptionDTO::new)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
+
+    private List<SeDoctorDTO> mapSeDoctorList(List<SeDoctor> seDoctors) {
+        if (seDoctors != null) {
+            return seDoctors.stream()
+                    .map(SeDoctorDTO::new)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
+
+    private List<DoctorPatientDTO> mapDoctorPatientList(List<DoctorPatient> doctorPatients) {
+        if (doctorPatients != null) {
+            return doctorPatients.stream()
+                    .map(DoctorPatientDTO::new)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
+
+    private List<SeUserGroupDTO> mapSeUserGroupList(List<SeUserGroup> seUserGroups) {
+        if (seUserGroups != null) {
+            return seUserGroups.stream()
+                    .map(SeUserGroupDTO::new)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
+
+    private List<MaAppointmentDTO> mapMaAppointmentList(List<MaAppointment> maAppointments) {
+        if (maAppointments != null) {
+            return maAppointments.stream()
+                    .map(MaAppointmentDTO::new)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
+
+    private List<SeUserMedicineDTO> mapSeUserMedicineList(List<SeUserMedicine> seUserMedicines) {
+        if (seUserMedicines != null) {
+            return seUserMedicines.stream()
+                    .map(SeUserMedicineDTO::new)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
+
+    private List<SePatientDTO> mapSePatientList(List<SePatient> sePatients) {
+        if (sePatients != null) {
+            return sePatients.stream()
+                    .map(SePatientDTO::new)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
     }
 
     public SeUserDTO(Integer userId, String username, String secret, int userPictureId, int version, boolean status, int txUser, String txHost, Date txDate, List<SePrescriptionDTO> sePrescriptionList, List<SePrescriptionDTO> sePrescriptionList1, List<SeDoctorDTO> seDoctorList, List<DoctorPatientDTO> doctorPatientList, List<SeUserGroupDTO> seUserGroupList, List<MaAppointmentDTO> maAppointmentList, List<MaAppointmentDTO> maAppointmentList1, SePersonDTO personId, List<SeUserMedicineDTO> seUserMedicineList, List<SePatientDTO> sePatientList) {
@@ -261,54 +328,84 @@ public class SeUserDTO {
         seUser.setTxHost(this.txHost);
         seUser.setTxDate(this.txDate);
 
-        List<SePrescription> sePrescriptions = this.sePrescriptionList.stream()
-                .map(SePrescriptionDTO::toEntity)
-                .collect(Collectors.toList());
-        seUser.setSePrescriptionList(sePrescriptions);
+        seUser.setSePrescriptionList(mapSePrescriptionDTOList(this.sePrescriptionList));
+        seUser.setSePrescriptionList1(mapSePrescriptionDTOList(this.sePrescriptionList1));
+        seUser.setSeDoctorList(mapSeDoctorDTOList(this.seDoctorList));
+        seUser.setDoctorPatientList(mapDoctorPatientDTOList(this.doctorPatientList));
+        seUser.setSeUserGroupList(mapSeUserGroupDTOList(this.seUserGroupList));
+        seUser.setMaAppointmentList(mapMaAppointmentDTOList(this.maAppointmentList));
+        seUser.setMaAppointmentList1(mapMaAppointmentDTOList(this.maAppointmentList1));
+        if (this.personId != null){
+            seUser.setPersonId(this.personId.toEntity());
+        }
+        seUser.setSeUserMedicineList(mapSeUserMedicineDTOList(this.seUserMedicineList));
+        seUser.setSePatientList(mapSePatientDTOList(this.sePatientList));
 
-        List<SePrescription> sePrescriptions1 = this.sePrescriptionList1.stream()
-                .map(SePrescriptionDTO::toEntity)
-                .collect(Collectors.toList());
-        seUser.setSePrescriptionList1(sePrescriptions1);
-
-        List<SeDoctor> seDoctors = this.seDoctorList.stream()
-                .map(SeDoctorDTO::toEntity)
-                .collect(Collectors.toList());
-        seUser.setSeDoctorList(seDoctors);
-
-        List<DoctorPatient> doctorPatients = this.doctorPatientList.stream()
-                .map(DoctorPatientDTO::toEntity)
-                .collect(Collectors.toList());
-        seUser.setDoctorPatientList(doctorPatients);
-
-        List<SeUserGroup> seUserGroups = this.seUserGroupList.stream()
-                .map(SeUserGroupDTO::toEntity)
-                .collect(Collectors.toList());
-        seUser.setSeUserGroupList(seUserGroups);
-
-        List<MaAppointment> maAppointments = this.maAppointmentList.stream()
-                .map(MaAppointmentDTO::toEntity)
-                .collect(Collectors.toList());
-        seUser.setMaAppointmentList(maAppointments);
-
-        List<MaAppointment> maAppointments1 = this.maAppointmentList1.stream()
-                .map(MaAppointmentDTO::toEntity)
-                .collect(Collectors.toList());
-        seUser.setMaAppointmentList1(maAppointments1);
-
-        seUser.setPersonId(this.personId.toEntity());
-
-        List<SeUserMedicine> seUserMedicines = this.seUserMedicineList.stream()
-                .map(SeUserMedicineDTO::toEntity)
-                .collect(Collectors.toList());
-        seUser.setSeUserMedicineList(seUserMedicines);
-
-        List<SePatient> sePatients = this.sePatientList.stream()
-                .map(SePatientDTO::toEntity)
-                .collect(Collectors.toList());
-        seUser.setSePatientList(sePatients);
 
         return seUser;
+    }
+
+    private List<SePrescription> mapSePrescriptionDTOList(List<SePrescriptionDTO> sePrescriptionDTOs) {
+        if (sePrescriptionDTOs != null) {
+            return sePrescriptionDTOs.stream()
+                    .map(SePrescriptionDTO::toEntity)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
+
+    private List<SeDoctor> mapSeDoctorDTOList(List<SeDoctorDTO> seDoctorDTOs) {
+        if (seDoctorDTOs != null) {
+            return seDoctorDTOs.stream()
+                    .map(SeDoctorDTO::toEntity)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
+
+    private List<DoctorPatient> mapDoctorPatientDTOList(List<DoctorPatientDTO> doctorPatientDTOs) {
+        if (doctorPatientDTOs != null) {
+            return doctorPatientDTOs.stream()
+                    .map(DoctorPatientDTO::toEntity)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
+
+    private List<SeUserGroup> mapSeUserGroupDTOList(List<SeUserGroupDTO> seUserGroupDTOs) {
+        if (seUserGroupDTOs != null) {
+            return seUserGroupDTOs.stream()
+                    .map(SeUserGroupDTO::toEntity)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
+
+    private List<MaAppointment> mapMaAppointmentDTOList(List<MaAppointmentDTO> maAppointmentDTOs) {
+        if (maAppointmentDTOs != null) {
+            return maAppointmentDTOs.stream()
+                    .map(MaAppointmentDTO::toEntity)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
+
+    private List<SeUserMedicine> mapSeUserMedicineDTOList(List<SeUserMedicineDTO> seUserMedicineDTOs) {
+        if (seUserMedicineDTOs != null) {
+            return seUserMedicineDTOs.stream()
+                    .map(SeUserMedicineDTO::toEntity)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
+
+    private List<SePatient> mapSePatientDTOList(List<SePatientDTO> sePatientDTOs) {
+        if (sePatientDTOs != null) {
+            return sePatientDTOs.stream()
+                    .map(SePatientDTO::toEntity)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
     }
 
     @Override

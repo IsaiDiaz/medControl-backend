@@ -1,6 +1,8 @@
 package bo.edu.ucb.med_control.medControl.dto;
 
 import bo.edu.ucb.med_control.medControl.entity.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 public class SePersonDTO {
@@ -9,10 +11,15 @@ public class SePersonDTO {
     private String personName;
     private String personEmail;
     private String personPhone;
+    @JsonIgnore
     private int version;
+    @JsonIgnore
     private boolean status;
+    @JsonIgnore
     private int txUser;
+    @JsonIgnore
     private String txHost;
+    @JsonIgnore
     private Date txDate;
 
     public SePersonDTO() {}
